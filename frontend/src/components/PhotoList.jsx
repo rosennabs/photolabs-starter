@@ -1,8 +1,10 @@
 import React from "react";
+import PhotoListItem from "./PhotoListItem";
+import PhotoFavButton from "./PhotoFavButton";
 
 import "../styles/PhotoList.scss";
 
-const sampleDataForPhotoList = [
+export const sampleDataForPhotoList = [
   {
     id: "1",
     location: {
@@ -56,10 +58,31 @@ const sampleDataForPhotoList = [
   },
 ];
 
-const PhotoList = () => {
+//This container houses photolistitems
+
+export const PhotoList = () => {
+
+  const renderPhotos = sampleDataForPhotoList.map((photo) => {
+    const { id, location, urls, user } = photo;
+
+    return (
+      <div key={`photo_${id}`}>
+        <PhotoFavButton />
+        <PhotoListItem
+          key={id}
+          city={location.city}
+          country={location.country}
+          image={urls.regular}
+          username={user.username}
+          profile={user.profile} />
+      </div>
+    )
+  });
+    
+
   return (
-    <ul className="photo-list">
-      {/* Insert React */}
+    <ul className="photo-list">     
+      {renderPhotos}
     </ul>
   );
 };
