@@ -1,6 +1,7 @@
 import React from "react";
 
 import "../styles/TopicList.scss";
+import TopicListItem from "./TopicListItem";
 
 const sampleDataForTopicList = [
   {
@@ -20,12 +21,25 @@ const sampleDataForTopicList = [
   },
 ];
 
+//Container holds all topics
 const TopicList = () => {
+  const renderTopics = sampleDataForTopicList.map((topic) => {
+    return (
+      
+      <TopicListItem key={topic.id} slug={topic.slug} title={topic.title} />
+      
+      
+    )
+  });
+    
   return (
     <div className="top-nav-bar__topic-list">
-      {/* Insert React */}
+      {renderTopics}
     </div>
-  );
+  )
+  
+  
+  
 };
 
 export default TopicList;

@@ -3,8 +3,10 @@ import { useState, useReducer} from 'react';
 
 
 import PhotoList from 'components/PhotoList';
-import PhotoFavButton from 'components/PhotoFavButton';
+import TopNavigationBar from 'components/TopNavigationBar';
+
 import './App.scss';
+
 
 
 
@@ -13,10 +15,10 @@ const App = () => {
   
   return (
     <div className="App">
-
+      <TopNavigationBar /> 
+      
       <PhotoList />
-       
-     
+      
     </div>
 
     
