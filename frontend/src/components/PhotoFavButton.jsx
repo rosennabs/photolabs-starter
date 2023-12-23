@@ -5,12 +5,12 @@ import '../styles/PhotoFavButton.scss';
 
 
 
-function PhotoFavButton() {
-  
+function PhotoFavButton({id, isFavourite, toggleFavourite}) {
+
   return (
-    <div className="photo-list__fav-icon">
+    <div onClick={()=> toggleFavourite(id)} className="photo-list__fav-icon">
       <div className="photo-list__fav-icon-svg">
-        <FavIcon />
+        <FavIcon selected={isFavourite}/>
       </div>
     </div>
   );
