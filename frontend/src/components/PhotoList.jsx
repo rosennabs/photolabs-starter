@@ -1,7 +1,5 @@
 import React from "react";
 import PhotoListItem from "./PhotoListItem";
-import PhotoDetailsModal from "routes/PhotoDetailsModal";
-import HomeRoute from "routes/HomeRoute";
 
 import "../styles/PhotoList.scss";
 
@@ -11,14 +9,13 @@ import "../styles/PhotoList.scss";
 
 export const PhotoList = (props) => {
 
-  
-  
-
   const renderPhotos = props.photos.map((photo) => {
     const { id, location, urls, user } = photo;
+   
 
     return (
-      <div  key={`photo_${id}`}>
+    
+      <div key={`photo_${id}`}>
         
         <PhotoListItem
           key={id}
@@ -30,7 +27,10 @@ export const PhotoList = (props) => {
           profile={user.profile}
           favourites={props.favourites}
           toggleFavourite={props.toggleFavourite}
-          setDisplayMode={props.setDisplayMode}/>
+          setDisplayMode={props.setDisplayMode}
+          photo={photo}
+          isOpenInModal={props.isOpenInModal} />
+        
       </div>
     )
   });
