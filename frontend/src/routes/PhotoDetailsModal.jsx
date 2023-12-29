@@ -10,9 +10,7 @@ const PhotoDetailsModal = (props) => {
 
   const { id, location, similar_photos, urls, user } = props.singlePhotoDetail
   
-  const similar_photosArray = Object.values(similar_photos)
-
-  console.log(props.favourites);
+  const similar_photosArray = Object.values(similar_photos) //Change similar photos object into an array
   
   return (
     <div className="photo-details-modal">
