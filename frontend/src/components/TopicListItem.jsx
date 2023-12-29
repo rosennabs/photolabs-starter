@@ -8,7 +8,7 @@ import "../styles/TopicListItem.scss";
 const TopicListItem = (props) => {
   return (
     <div className="topic-list__item">
-      {`Topic ${props.id}`}
+      {props.title}
     </div>
   );
 };

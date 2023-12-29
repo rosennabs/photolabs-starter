@@ -1,41 +1,62 @@
-import { useState } from "react"
+import { useReducer } from "react"
 
 
 const useApplicationData = () => {
-  const [state, setState] = useState({
+
+  const initialState = {
     displayMode: false,
-    favourites: []
-  });
+    favourites: [],
+  };
+
+  const reduce = (state, action) => {
+    if (action.type === "setDisplayMode") {
+      return {
+        ...state,
+        displayMode: action.displayData
+      }
+    }
+
+    if (action.type === "addToFavourites") {
+      return {
+        ...state,
+        favourites: [...state.favourites, action.photoId],
+      };
+    }
+
+     if (action.type === "removePhotoFromFavourites") {
+       return {
+         ...state,
+         favourites: [...state.favourites.filter((id)=> id !== action.photoId)],
+       };
+     }
+
+  };
+
+  const [state, dispatch] = useReducer(reduce, initialState);
 
   const setDisplayMode = (display) => {
+    //The dispatch function calls the applicable reduce function
     //Update display mode when called
-    setState((prev) => {
-      return {
-        ...prev,
-        displayMode: display
-      }
 
-    })
+    dispatch({
+      type: "setDisplayMode",
+      displayData: display,
+    });
   }
-  
+
   const addToFavourites = (photoId) => {
     //update the list of favourites with new likes
-    setState((prev) => {
-      return {
-        //returns an object since initial state is an object.
-        ...prev, //makes a copy of the current state
-        favourites: [...prev.favourites, photoId], //uses the spread operator to add new element to the current favourites array
-      };
+    dispatch({
+      type: "addToFavourites",
+      photoId: photoId
     });
   };
 
   const removePhotoFromFavourites = (photoId) => {
     //remove and update the list of favourites
-    setState((prev) => {
-      return {
-        ...prev,
-        favourites: prev.favourites.filter((id) => id !== photoId),
-      };
+    dispatch({
+      type: "removePhotoFromFavourites",
+      photoId: photoId,
     });
   };
 

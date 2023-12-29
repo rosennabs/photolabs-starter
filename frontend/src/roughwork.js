@@ -1,11 +1,8 @@
-const newObj = {
-  name: "Rose",
-  age: 30
-}
-const photoArray = [];
-//photoArray.push(newObj);
+const arrayNum = [1, 2, 3, 4, 5];
 
-const newArray = photoArray.map((item) => {
-  photoArray.push(newObj)
-})
-console.log(newArray);
+const sumArray = arrayNum.reduce((acc, num) => {
+  acc += num;
+  return acc;
+}, 0)
+
+console.log(sumArray);
