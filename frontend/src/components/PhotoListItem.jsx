@@ -15,14 +15,18 @@ const PhotoListItem = (props) => {
       
       <img onClick={()=> props.setDisplayMode(props.photo)} className={`${props.isOpenInModal ? 'photo-details-modal__image' : 'photo-list__image'}`} src={props.image} alt="A regular image" />
       
-      <div className="photo-list__user-details">
+      <section className="photo-list__user-details">
         <img className="photo-list__user-profile" src={props.profile} alt="A person's headshot" />
 
         <div className="photo-list__user-info"> 
-          <p>{props.username}</p>
-          <span className="photo-list__user-location">{props.city}, {props.country}</span> 
+         
+          {props.name}
+          <br/>
+          <span className="photo-list__user-location">{props.city}, {props.country}</span>
+
+          
         </div>
-      </div>
+      </section>
 
       
 

@@ -26,7 +26,7 @@ const PhotoDetailsModal = (props) => {
           city={location.city}
           country={location.country}
           image={urls.regular}
-          username={user.username}
+          name={user.name}
           profile={user.profile}
           favourites={props.favourites}
           toggleFavourite={props.toggleFavourite}

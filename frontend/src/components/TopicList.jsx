@@ -10,7 +10,7 @@ const TopicList = (props) => {
   const renderTopics = props.topics.map((topic) => {
     return (
       
-      <TopicListItem key={topic.id} id={topic.id} slug={topic.slug} title={topic.title} />
+      <TopicListItem key={topic.id} id={topic.id} title={topic.title} setCategory={props.setCategory} />
       
       
     )

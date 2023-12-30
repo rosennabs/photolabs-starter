@@ -5,10 +5,10 @@ import "../styles/TopicListItem.scss";
 
 
 
-const TopicListItem = (props) => {
+const TopicListItem = ({id, title, setCategory}) => {
   return (
-    <div className="topic-list__item">
-      {props.title}
+    <div onClick={()=>setCategory(id)} className="topic-list__item">
+      {title}
     </div>
   );
 };
