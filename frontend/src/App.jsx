@@ -9,13 +9,25 @@ import useApplicationData from 'hooks/useApplicationData';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const { state, toggleFavourite, setDisplayMode, setCategory } = useApplicationData();
+  const { state, toggleFavourite, setDisplayMode, setCategory, refreshHomepage } = useApplicationData();
 
   return (
     <div className="App">
-       <HomeRoute photos={state.photoData} topics={state.topicData} setDisplayMode={setDisplayMode} favourites={state.favourites} toggleFavourite={toggleFavourite} setCategory={setCategory}/> 
+      <HomeRoute
+        photos={state.photoData}
+        topics={state.topicData}
+        setDisplayMode={setDisplayMode}
+        favourites={state.favourites}
+        toggleFavourite={toggleFavourite}
+        setCategory={setCategory}
+        refreshHomepage={refreshHomepage}/> 
 
-      {state.displayMode && <PhotoDetailsModal setDisplayMode={setDisplayMode} singlePhotoDetail={state.displayMode} favourites={state.favourites} toggleFavourite={toggleFavourite} isOpenInModal={true}/>} 
+      {state.displayMode && <PhotoDetailsModal
+        setDisplayMode={setDisplayMode}
+        singlePhotoDetail={state.displayMode}
+        favourites={state.favourites}
+        toggleFavourite={toggleFavourite}
+        isOpenInModal={true} />} 
 
     </div>
 

@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from "react"
+import { useState, useReducer, useEffect } from "react"
 import axios from "axios"
 
 
@@ -9,14 +9,16 @@ const useApplicationData = () => {
     displayMode: false,
     favourites: [],
     photoData: [],
-    topicData: []
+    topicData: [],
   };
+
+  const [allPhotos, setAllPhotos] = useState([]); // New state to store all photos seperately for home refresh
 
   //Make an API request to the photo data and run request only once after component renders
   useEffect(() => {
     axios.get("/api/photos").then((res) => {
       setPhotoData(res.data);
-      
+      setAllPhotos(res.data);
     });
   }, []);
 
@@ -28,13 +30,16 @@ const useApplicationData = () => {
   }, []);
 
   //Make an API request to fetch different image categories with topic id
- 
+
   const setCategory = (topicId) => {
     axios.get(`/api/topics/photos/${topicId}`).then((res) => {
       setPhotoData(res.data);
-      
     });
-  }
+  };
+
+  const refreshHomepage = () => {
+    setPhotoData(allPhotos);
+  };
 
   //Update state under the following conditions
   const reduce = (state, action) => {
@@ -129,7 +134,8 @@ const useApplicationData = () => {
     state,
     toggleFavourite,
     setDisplayMode,
-    setCategory
+    setCategory,
+    refreshHomepage
   };
 }
 
