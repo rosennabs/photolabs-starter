@@ -43,39 +43,37 @@ const useApplicationData = () => {
 
   //Update state under the following conditions
   const reduce = (state, action) => {
-    if (action.type === "setPhotoData") {
+    switch (action.type) {
+    case "setPhotoData":
       return {
         ...state,
         photoData: action.photoData,
       };
-    }
-
-    if (action.type === "setTopicData") {
+    
+    case "setTopicData":
       return {
         ...state,
         topicData: action.topicData,
       };
-    }
-
-    if (action.type === "setDisplayMode") {
+   
+    case "setDisplayMode":
       return {
         ...state,
         displayMode: action.displayData,
       };
-    }
-
-    if (action.type === "addToFavourites") {
+   
+      case "addToFavourites":
       return {
         ...state,
         favourites: [...state.favourites, action.photoId],
       };
-    }
-
-    if (action.type === "removePhotoFromFavourites") {
+    
+      case "removePhotoFromFavourites":
       return {
         ...state,
         favourites: [...state.favourites.filter((id) => id !== action.photoId)],
       };
+    
     }
   };
 
