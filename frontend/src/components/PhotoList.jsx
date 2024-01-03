@@ -1,46 +1,43 @@
 import React from "react";
-import PhotoListItem from "./PhotoListItem";
 
 import "../styles/PhotoList.scss";
+import PhotoListItem from "./PhotoListItem";
 
 
 
-//This container houses photolistitems
+const PhotoList = ({photos, openModal, favourites, toggleFavourites}) => {
 
-export const PhotoList = (props) => {
-
-  const renderPhotos = props.photos.map((photo) => {
+  const renderPhotos = photos.map((photo) => {
     const { id, location, urls, user } = photo;
-   
-
+  
     return (
-    
+      
       <div key={`photo_${id}`}>
-        
-        <PhotoListItem
+       
+        < PhotoListItem
           key={id}
           id={id}
           city={location.city}
           country={location.country}
           image={urls.regular}
+          username={user.username}
           name={user.name}
           profile={user.profile}
-          favourites={props.favourites}
-          toggleFavourite={props.toggleFavourite}
-          setDisplayMode={props.setDisplayMode}
-          photo={photo}
-          isOpenInModal={props.isOpenInModal} />
+          openModal={openModal}
+          singlePhotoDetails={photo}
+          favourites={favourites}
+          toggleFavourites={toggleFavourites}/>
         
       </div>
-    )
-  });
+    );
     
+  })
 
   return (
-    <ul className="photo-list">     
+    <ul className="photo-list">
       {renderPhotos}
     </ul>
-  );
+  )
 };
 
 export default PhotoList;

@@ -7,34 +7,26 @@ import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = (props) => {
   
+
   return (
-
     <div className="photo-list__item">
+      <PhotoFavButton toggleFavourites={props.toggleFavourites} photoId={props.id} isFavourite={props.favourites.includes(props.id)}/>
       
-      <PhotoFavButton isFavourite={props.favourites.includes(props.id)} toggleFavourite={props.toggleFavourite} id={props.id} />
-      
-      <img onClick={()=> props.setDisplayMode(props.photo)} className={`${props.isOpenInModal ? 'photo-details-modal__image' : 'photo-list__image'}`} src={props.image} alt="A regular image" />
-      
+      <img onClick={() => props.openModal(props.singlePhotoDetails)}
+        className={`${props.photoIsClicked ? 'photo-details-modal__image' : 'photo-list__image'}`} src={props.image} alt="Regular random image" />
+
       <section className="photo-list__user-details">
-        <img className="photo-list__user-profile" src={props.profile} alt="A person's headshot" />
+        <img className="photo-list__user-profile" src={props.profile} alt="Regular random image" />
 
-        <div className="photo-list__user-info"> 
-         
-          {props.name}
+        <div className="photo-list__user-info">
+          <span> {props.name} </span>
           <br/>
-          <span className="photo-list__user-location">{props.city}, {props.country}</span>
-
-          
+          <span className="photo-list__user-location"> {props.city}, {props.country}</span>
         </div>
+
       </section>
-
-      
-
-      
+       
     </div>
-
-    
-   
   )
 };
 

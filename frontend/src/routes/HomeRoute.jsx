@@ -1,18 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
+import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
-import TopNavigationBar from 'components/TopNavigationBar';
-
 
 import '../styles/HomeRoute.scss';
 
 const HomeRoute = (props) => {
-  
   return (
     <div className="home-route">
-     <TopNavigationBar topics={props.topics} favourites={props.favourites} setCategory={props.setCategory} refreshHomepage={props.refreshHomepage}/> 
-      <PhotoList photos={props.photos} favourites={props.favourites} toggleFavourite={props.toggleFavourite} setDisplayMode={props.setDisplayMode}/>
-      
-      
+      <TopNavigation topics={props.topics} topicCategoryClicked={props.topicCategoryClicked} refreshHomepage={props.refreshHomepage} favourites={props.favourites}/>
+      <PhotoList photos={props.photos} openModal={props.openModal} favourites={props.favourites}toggleFavourites={props.toggleFavourites}/>
     </div>
   );
 };

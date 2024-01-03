@@ -1,38 +1,33 @@
-import { useState, useReducer, useEffect } from "react"
-import axios from "axios"
+import { useState, useEffect, useReducer } from "react";
+import axios from "axios";
 
-
+//State management
 const useApplicationData = () => {
-  //This is our global initial state that gets updated via the reduce function calls below
-
   const initialState = {
-    displayMode: false,
-    favourites: [],
     photoData: [],
     topicData: [],
+    favourites: [],
+    photoDetailsModal: false,
   };
 
   const [allPhotos, setAllPhotos] = useState([]); // New state to store all photos seperately for home refresh
 
-  //Make an API request to the photo data and run request only once after component renders
+  //Fetch data from api
   useEffect(() => {
-    axios.get("/api/photos").then((res) => {
+    axios.get("http://localhost:8001/api/photos").then((res) => {
       setPhotoData(res.data);
       setAllPhotos(res.data);
     });
   }, []);
 
-  //Make an API request to the topic data and run request only once after component renders
   useEffect(() => {
-    axios.get("/api/topics").then((res) => {
+    axios.get("http://localhost:8001/api/topics").then((res) => {
       setTopicData(res.data);
     });
   }, []);
 
-  //Make an API request to fetch different image categories with topic id
-
-  const setCategory = (topicId) => {
-    axios.get(`/api/topics/photos/${topicId}`).then((res) => {
+  const topicCategoryClicked = (id) => {
+    axios.get(`http://localhost:8001/api/topics/photos/${id}`).then((res) => {
       setPhotoData(res.data);
     });
   };
@@ -41,46 +36,46 @@ const useApplicationData = () => {
     setPhotoData(allPhotos);
   };
 
-  //Update state under the following conditions
   const reduce = (state, action) => {
+    //Update state with photo data
     switch (action.type) {
-    case "setPhotoData":
-      return {
-        ...state,
-        photoData: action.photoData,
-      };
-    
-    case "setTopicData":
-      return {
-        ...state,
-        topicData: action.topicData,
-      };
-   
-    case "setDisplayMode":
-      return {
-        ...state,
-        displayMode: action.displayData,
-      };
-   
+      case "setPhotoData":
+        return {
+          ...state,
+          photoData: action.photoData,
+        };
+
+      case "setTopicData":
+        return {
+          ...state,
+          topicData: action.topicData,
+        };
+
+      case "setPhotoDetailsModal":
+        return {
+          ...state,
+          photoDetailsModal: action.photoDetailsModal,
+        };
+
       case "addToFavourites":
-      return {
-        ...state,
-        favourites: [...state.favourites, action.photoId],
-      };
-    
-      case "removePhotoFromFavourites":
-      return {
-        ...state,
-        favourites: [...state.favourites.filter((id) => id !== action.photoId)],
-      };
-    
+        return {
+          ...state,
+          favourites: [...state.favourites, action.photoId],
+        };
+
+      case "removeFavourites":
+        return {
+          ...state,
+          favourites: [
+            ...state.favourites.filter((id) => id !== action.photoId),
+          ],
+        };
     }
   };
 
-  //Declare the useReducer hook
   const [state, dispatch] = useReducer(reduce, initialState);
 
-  //Dispatch the photo and topic data to be actioned by the applicable reducer function call above
+  //Dispatch data fetched from the axios call to the reduce function to update state with data
 
   const setPhotoData = (data) => {
     dispatch({
@@ -96,45 +91,41 @@ const useApplicationData = () => {
     });
   };
 
-  const setDisplayMode = (display) => {
-    //The dispatch function calls the applicable reduce function
-    //Update display mode when called
-
+  const openModal = (photoId) => {
     dispatch({
-      type: "setDisplayMode",
-      displayData: display,
+      type: "setPhotoDetailsModal",
+      photoDetailsModal: photoId,
     });
   };
 
+  //Implement user favourites feature
   const addToFavourites = (photoId) => {
-    //update the list of favourites with new likes
     dispatch({
       type: "addToFavourites",
       photoId: photoId,
     });
   };
 
-  const removePhotoFromFavourites = (photoId) => {
-    //remove and update the list of favourites
+  const removeFavourites = (photoId) => {
     dispatch({
-      type: "removePhotoFromFavourites",
+      type: "removeFavourites",
       photoId: photoId,
     });
   };
 
-  const toggleFavourite = (photoId) => {
+  const toggleFavourites = (photoId) => {
     state.favourites.includes(photoId)
-      ? removePhotoFromFavourites(photoId)
+      ? removeFavourites(photoId)
       : addToFavourites(photoId);
   };
 
   return {
     state,
-    toggleFavourite,
-    setDisplayMode,
-    setCategory,
-    refreshHomepage
+    topicCategoryClicked,
+    refreshHomepage,
+    openModal,
+    toggleFavourites,
   };
-}
+};
 
 export default useApplicationData;

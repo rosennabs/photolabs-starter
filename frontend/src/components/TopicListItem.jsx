@@ -1,14 +1,13 @@
 import React from "react";
 
-
 import "../styles/TopicListItem.scss";
 
 
 
-const TopicListItem = ({id, title, setCategory}) => {
+const TopicListItem = ({id, title, topicCategoryClicked}) => {
   return (
-    <div onClick={()=>setCategory(id)} className="topic-list__item">
-      <span className="topic-list__item span"> {title} </span>
+    <div className="topic-list__item">
+      <span onClick={()=>topicCategoryClicked(id)} className="topic-list__item span"> {title} </span>
     </div>
   );
 };

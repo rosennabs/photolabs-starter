@@ -1,37 +1,35 @@
-import React from 'react';
-import './App.scss';
+import { React, useEffect } from 'react';
 import HomeRoute from 'routes/HomeRoute';
-import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 import useApplicationData from 'hooks/useApplicationData';
-
-
+import './App.scss';
+import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const { state, toggleFavourite, setDisplayMode, setCategory, refreshHomepage } = useApplicationData();
+
+//Destructure the useApplicationData function
+  const { state, topicCategoryClicked, refreshHomepage, openModal, toggleFavourites} = useApplicationData();
+
 
   return (
     <div className="App">
       <HomeRoute
-        photos={state.photoData}
         topics={state.topicData}
-        setDisplayMode={setDisplayMode}
+        topicCategoryClicked={topicCategoryClicked}
+        refreshHomepage={refreshHomepage}
+        photos={state.photoData}
+        openModal={openModal}
         favourites={state.favourites}
-        toggleFavourite={toggleFavourite}
-        setCategory={setCategory}
-        refreshHomepage={refreshHomepage}/> 
-
-      {state.displayMode && <PhotoDetailsModal
-        setDisplayMode={setDisplayMode}
-        singlePhotoDetail={state.displayMode}
+        toggleFavourites={toggleFavourites}
+        /> 
+      
+      {state.photoDetailsModal && <PhotoDetailsModal
+        openModal={openModal}
+        photoIsClicked={state.photoDetailsModal}
         favourites={state.favourites}
-        toggleFavourite={toggleFavourite}
-        isOpenInModal={true} />} 
-
+        toggleFavourites={toggleFavourites}/>}
     </div>
-
-    
   );
 };
 

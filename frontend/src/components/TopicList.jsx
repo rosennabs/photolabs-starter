@@ -4,26 +4,21 @@ import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
 
 
-
-//Container holds all topics
-const TopicList = (props) => {
-  const renderTopics = props.topics.map((topic) => {
+const TopicList = ({ topics, topicCategoryClicked }) => {
+  const renderTopics = topics.map((topic) => {
     return (
-      
-      <TopicListItem key={topic.id} id={topic.id} title={topic.title} setCategory={props.setCategory} />
-      
-      
+      <div key={topic.slug}>
+        <TopicListItem id={topic.id} title={topic.title} topicCategoryClicked={topicCategoryClicked}/>
+
+      </div>
     )
   });
-    
+
   return (
     <div className="top-nav-bar__topic-list">
       {renderTopics}
     </div>
-  )
-  
-  
-  
+  );
 };
 
 export default TopicList;
