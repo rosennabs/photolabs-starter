@@ -47,6 +47,9 @@ const useApplicationData = () => {
      setPhotoData(filteredPhotos);
      setCityInput("");
    };
+  
+  
+
 
   const reduce = (state, action) => {
     //Update state with photo data
@@ -88,6 +91,18 @@ const useApplicationData = () => {
           ...state,
           cityInput: action.city,
         };
+
+      
+      case "displayFavourites":
+        //filter photodata based on the photo ids contained in favourites
+        const filteredPhotos = state.photoData.filter((photo) =>
+          state.favourites.includes(photo.id)
+        );
+
+        return {
+          ...state,
+          photoData: filteredPhotos,
+        };
     }
   };
 
@@ -98,7 +113,7 @@ const useApplicationData = () => {
   const setPhotoData = (data) => {
     dispatch({
       type: "setPhotoData",
-      photoData: data,
+      photoData: data
     });
   };
 
@@ -142,6 +157,14 @@ const useApplicationData = () => {
     });
   };
 
+  const displayFavourites = () => {
+    dispatch({
+      type: "displayFavourites",
+    });
+  }
+
+
+  
 
   return {
     state,
@@ -151,6 +174,7 @@ const useApplicationData = () => {
     toggleFavourites,
     setCityInput,
     handleFilterInput,
+    displayFavourites
   };
 }
 
