@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import {useState, useEffect, useReducer} from "react";
 import axios from "axios";
 
 //State management
@@ -8,6 +8,7 @@ const useApplicationData = () => {
     topicData: [],
     favourites: [],
     photoDetailsModal: false,
+    cityInput: "",
   };
 
   const [allPhotos, setAllPhotos] = useState([]); // New state to store all photos seperately for home refresh
@@ -35,6 +36,17 @@ const useApplicationData = () => {
   const refreshHomepage = () => {
     setPhotoData(allPhotos);
   };
+
+   const handleFilterInput = () => {
+     //Filter photos based on the user's input (city)
+     const filteredPhotos = allPhotos.filter(
+       (photo) =>
+         photo.location.city.toLowerCase() === state.cityInput.toLowerCase()
+     );
+
+     setPhotoData(filteredPhotos);
+     setCityInput("");
+   };
 
   const reduce = (state, action) => {
     //Update state with photo data
@@ -70,6 +82,12 @@ const useApplicationData = () => {
             ...state.favourites.filter((id) => id !== action.photoId),
           ],
         };
+
+      case "setCityInput":
+        return {
+          ...state,
+          cityInput: action.city,
+        };
     }
   };
 
@@ -102,22 +120,28 @@ const useApplicationData = () => {
   const addToFavourites = (photoId) => {
     dispatch({
       type: "addToFavourites",
-      photoId: photoId,
+      photoId: photoId
     });
   };
+  
+   const removeFavourites = (photoId) => {
+     dispatch({
+       type: "removeFavourites",
+       photoId: photoId,
+     });
+   };
+  
+   const toggleFavourites = (photoId) => {
+      state.favourites.includes(photoId) ? removeFavourites(photoId) : addToFavourites(photoId)  
+   };
 
-  const removeFavourites = (photoId) => {
+  const setCityInput = (city) => {
     dispatch({
-      type: "removeFavourites",
-      photoId: photoId,
+      type: "setCityInput",
+      city: city,
     });
   };
 
-  const toggleFavourites = (photoId) => {
-    state.favourites.includes(photoId)
-      ? removeFavourites(photoId)
-      : addToFavourites(photoId);
-  };
 
   return {
     state,
@@ -125,7 +149,10 @@ const useApplicationData = () => {
     refreshHomepage,
     openModal,
     toggleFavourites,
+    setCityInput,
+    handleFilterInput,
   };
-};
+}
+
 
 export default useApplicationData;
