@@ -95,13 +95,13 @@ const useApplicationData = () => {
       
       case "displayFavourites":
         //filter photodata based on the photo ids contained in favourites
-        const filteredPhotos = state.photoData.filter((photo) =>
+        const favouritePhotos = state.photoData.filter((photo) =>
           state.favourites.includes(photo.id)
         );
-
+        //update photodata with favourite photos
         return {
           ...state,
-          photoData: filteredPhotos,
+          photoData: favouritePhotos,
         };
     }
   };
