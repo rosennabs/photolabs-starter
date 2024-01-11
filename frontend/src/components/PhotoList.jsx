@@ -5,7 +5,7 @@ import PhotoListItem from "./PhotoListItem";
 
 
 
-const PhotoList = ({photos, openModal, favourites, toggleFavourites}) => {
+const PhotoList = ({photos, openModal, favourites, toggleFavourites, photoIsClicked}) => {
 
   const renderPhotos = photos.map((photo) => {
     const { id, location, urls, user } = photo;
@@ -34,9 +34,9 @@ const PhotoList = ({photos, openModal, favourites, toggleFavourites}) => {
   })
 
   return (
-    <ul className="photo-list">
+    <div className={`${photoIsClicked? 'photo-list-modal' : 'photo-list'}`}>
       {renderPhotos}
-    </ul>
+    </div>
   )
 };
 

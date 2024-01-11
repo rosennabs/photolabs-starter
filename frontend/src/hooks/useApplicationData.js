@@ -1,6 +1,14 @@
 import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 
+
+// Define action types as constants
+const SET_PHOTO_DATA = "SET_PHOTO_DATA";
+const SET_TOPIC_DATA = "SET_TOPIC_DATA";
+const SET_PHOTO_DETAILS_MODAL = "SET_PHOTO_DETAILS_MODAL";
+const ADD_TO_FAVOURITES = "ADD_TO_FAVOURITES";
+const REMOVE_FROM_FAVOURITES = "REMOVE_FROM_FAVOURITES";
+
 //State management
 const useApplicationData = () => {
   const initialState = {
@@ -39,31 +47,31 @@ const useApplicationData = () => {
   const reduce = (state, action) => {
     //Update state with photo data
     switch (action.type) {
-      case "setPhotoData":
+      case SET_PHOTO_DATA:
         return {
           ...state,
           photoData: action.photoData,
         };
 
-      case "setTopicData":
+      case SET_TOPIC_DATA:
         return {
           ...state,
           topicData: action.topicData,
         };
 
-      case "setPhotoDetailsModal":
+      case SET_PHOTO_DETAILS_MODAL:
         return {
           ...state,
           photoDetailsModal: action.photoDetailsModal,
         };
 
-      case "addToFavourites":
+      case ADD_TO_FAVOURITES:
         return {
           ...state,
           favourites: [...state.favourites, action.photoId],
         };
 
-      case "removeFavourites":
+      case REMOVE_FROM_FAVOURITES:
         return {
           ...state,
           favourites: [
@@ -79,21 +87,21 @@ const useApplicationData = () => {
 
   const setPhotoData = (data) => {
     dispatch({
-      type: "setPhotoData",
+      type: SET_PHOTO_DATA,
       photoData: data,
     });
   };
 
   const setTopicData = (data) => {
     dispatch({
-      type: "setTopicData",
+      type: SET_TOPIC_DATA,
       topicData: data,
     });
   };
 
   const openModal = (photoId) => {
     dispatch({
-      type: "setPhotoDetailsModal",
+      type: SET_PHOTO_DETAILS_MODAL,
       photoDetailsModal: photoId,
     });
   };
@@ -101,14 +109,14 @@ const useApplicationData = () => {
   //Implement user favourites feature
   const addToFavourites = (photoId) => {
     dispatch({
-      type: "addToFavourites",
+      type: ADD_TO_FAVOURITES,
       photoId: photoId,
     });
   };
 
   const removeFavourites = (photoId) => {
     dispatch({
-      type: "removeFavourites",
+      type: REMOVE_FROM_FAVOURITES,
       photoId: photoId,
     });
   };

@@ -1,14 +1,23 @@
 .photo-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   list-style-type: none;
   margin: 0;
   padding: 0;
+  width: 1200px;
 }
 
 .photo-list:after {
   content: "";
   flex: 0 1 30%;
   margin: 5px;
+}
+
+.photo-list-modal {
+  display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
