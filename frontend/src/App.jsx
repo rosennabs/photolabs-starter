@@ -10,7 +10,7 @@ const App = () => {
 
 //Destructure the useApplicationData function
   const { state, topicCategoryClicked, refreshHomepage, openModal, toggleFavourites} = useApplicationData();
-
+//console.log("this is state:", state);
 
   return (
     <div className="App">

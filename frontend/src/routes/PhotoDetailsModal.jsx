@@ -36,7 +36,9 @@ const PhotoDetailsModal = ({ openModal, photoIsClicked, favourites, toggleFavour
           photos={similar_photos}
           favourites={favourites}
           toggleFavourites={toggleFavourites} 
-          photoIsClicked={photoIsClicked} />
+          photoIsClicked={photoIsClicked}
+          openModal={openModal}
+        />
 
 
 

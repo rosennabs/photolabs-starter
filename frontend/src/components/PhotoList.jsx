@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
 
 
-const PhotoList = ({photos, openModal, favourites, toggleFavourites, photoIsClicked}) => {
+const PhotoList = ({ photos, openModal, favourites, toggleFavourites, photoIsClicked }) => {
+  
+  const photoArray = photos || [] //when photos is undefined, give it an empty array.
 
-  const renderPhotos = photos.map((photo) => {
+
+  const renderPhotos = photoArray.map((photo) => {
     const { id, location, urls, user } = photo;
   
     return (

@@ -22,20 +22,20 @@ const useApplicationData = () => {
 
   //Fetch data from api
   useEffect(() => {
-    axios.get("http://localhost:8001/api/photos").then((res) => {
+    axios.get("/api/photos").then((res) => {
       setPhotoData(res.data);
       setAllPhotos(res.data);
     });
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:8001/api/topics").then((res) => {
+    axios.get("/api/topics").then((res) => {
       setTopicData(res.data);
     });
   }, []);
 
   const topicCategoryClicked = (id) => {
-    axios.get(`http://localhost:8001/api/topics/photos/${id}`).then((res) => {
+    axios.get(`/api/topics/photos/${id}`).then((res) => {
       setPhotoData(res.data);
     });
   };
