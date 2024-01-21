@@ -9,8 +9,8 @@ import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 const App = () => {
 
 //Destructure the useApplicationData function
-  const { state, topicCategoryClicked, refreshHomepage, openModal, toggleFavourites} = useApplicationData();
-//console.log("this is state:", state);
+  const { state, topicCategoryClicked, refreshHomepage, openModal, toggleFavourites, setCityInput, handleFilterInput} = useApplicationData();
+
 
   return (
     <div className="App">
@@ -22,6 +22,9 @@ const App = () => {
         openModal={openModal}
         favourites={state.favourites}
         toggleFavourites={toggleFavourites}
+        cityInput={state.cityInput}
+        setCityInput={setCityInput}
+        handleFilterInput={handleFilterInput}
         /> 
       
       {state.photoDetailsModal && <PhotoDetailsModal
