@@ -10,7 +10,7 @@ const PhotoListItem = (props) => {
 
   return (
     <div className="photo-list__item">
-      <PhotoFavButton toggleFavourites={props.toggleFavourites} photoId={props.id} isFavourite={props.favourites.includes(props.id)}/>
+      <PhotoFavButton toggleFavourites={props.toggleFavourites} photoId={props.id} favourites={props.favourites}/>
       
       <img onClick={() => props.openModal(props.singlePhotoDetails)}
         className={`${props.photoIsClicked ? 'photo-details-modal__image' : 'photo-list__image'}`} src={props.image} alt="Regular random image" />

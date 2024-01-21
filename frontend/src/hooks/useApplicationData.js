@@ -9,6 +9,7 @@ const SET_PHOTO_DETAILS_MODAL = "SET_PHOTO_DETAILS_MODAL";
 const ADD_TO_FAVOURITES = "ADD_TO_FAVOURITES";
 const REMOVE_FROM_FAVOURITES = "REMOVE_FROM_FAVOURITES";
 const SET_CITY_INPUT = "SET_CITY_INPUT";
+const DISPLAY_FAVOURITES = "DISPLAY_FAVOURITES";
 
 
 //State management
@@ -100,6 +101,17 @@ const useApplicationData = () => {
           ...state,
           cityInput: action.city,
         };
+
+      case DISPLAY_FAVOURITES:
+        //filter photodata based on the photo ids contained in favourites
+        const filteredPhotos = state.photoData.filter((photo) =>
+          state.favourites.includes(photo.id)
+        );
+
+        return {
+          ...state,
+          photoData: filteredPhotos,
+        };
     }
   };
 
@@ -156,6 +168,12 @@ const useApplicationData = () => {
     });
   };
 
+  const displayFavourites = () => {
+    dispatch({
+      type: DISPLAY_FAVOURITES,
+    });
+  };
+
   return {
     state,
     topicCategoryClicked,
@@ -164,6 +182,7 @@ const useApplicationData = () => {
     toggleFavourites,
     setCityInput,
     handleFilterInput,
+    displayFavourites,
   };
 };
 
