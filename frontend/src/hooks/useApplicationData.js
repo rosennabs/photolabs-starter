@@ -8,6 +8,8 @@ const SET_TOPIC_DATA = "SET_TOPIC_DATA";
 const SET_PHOTO_DETAILS_MODAL = "SET_PHOTO_DETAILS_MODAL";
 const ADD_TO_FAVOURITES = "ADD_TO_FAVOURITES";
 const REMOVE_FROM_FAVOURITES = "REMOVE_FROM_FAVOURITES";
+const SET_CITY_INPUT = "SET_CITY_INPUT";
+
 
 //State management
 const useApplicationData = () => {
@@ -16,6 +18,7 @@ const useApplicationData = () => {
     topicData: [],
     favourites: [],
     photoDetailsModal: false,
+    cityInput: "",
   };
 
   const [allPhotos, setAllPhotos] = useState([]); // New state to store all photos seperately for home refresh
@@ -43,6 +46,19 @@ const useApplicationData = () => {
   const refreshHomepage = () => {
     setPhotoData(allPhotos);
   };
+
+
+  const handleFilterInput = () => {
+    //Filter photos based on the user's input (city)
+    const filteredPhotos = allPhotos.filter(
+      (photo) =>
+        photo.location.city.toLowerCase() === state.cityInput.toLowerCase()
+    );
+
+    setPhotoData(filteredPhotos);
+    setCityInput("");
+  };
+
 
   const reduce = (state, action) => {
     //Update state with photo data
@@ -77,6 +93,12 @@ const useApplicationData = () => {
           favourites: [
             ...state.favourites.filter((id) => id !== action.photoId),
           ],
+        };
+
+      case SET_CITY_INPUT:
+        return {
+          ...state,
+          cityInput: action.city,
         };
     }
   };
@@ -127,12 +149,21 @@ const useApplicationData = () => {
       : addToFavourites(photoId);
   };
 
+  const setCityInput = (city) => {
+    dispatch({
+      type: SET_CITY_INPUT,
+      city: city,
+    });
+  };
+
   return {
     state,
     topicCategoryClicked,
     refreshHomepage,
     openModal,
     toggleFavourites,
+    setCityInput,
+    handleFilterInput,
   };
 };
 
