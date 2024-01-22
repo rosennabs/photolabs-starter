@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react';
+import { React} from 'react';
 import HomeRoute from 'routes/HomeRoute';
 import useApplicationData from 'hooks/useApplicationData';
 import './App.scss';
@@ -9,11 +9,11 @@ import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 const App = () => {
 
 //Destructure the useApplicationData function
-  const { state, topicCategoryClicked, refreshHomepage, openModal, toggleFavourites, setCityInput, handleFilterInput, displayFavourites} = useApplicationData();
+  const { state, topicCategoryClicked, refreshHomepage, openModal, toggleFavourites, setCityInput, handleFilterInput, displayFavourites, toggleMode} = useApplicationData();
 
 
   return (
-    <div className="App">
+    <div className={`App ${state.mode === 'dark' ? 'dark-mode' : ''}`}>
       <HomeRoute
         topics={state.topicData}
         topicCategoryClicked={topicCategoryClicked}
@@ -26,6 +26,8 @@ const App = () => {
         setCityInput={setCityInput}
         handleFilterInput={handleFilterInput}
         displayFavourites={displayFavourites}
+        toggleMode={toggleMode}
+        mode={state.mode}
         /> 
       
       {state.photoDetailsModal && <PhotoDetailsModal

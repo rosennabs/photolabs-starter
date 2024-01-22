@@ -10,6 +10,7 @@ const ADD_TO_FAVOURITES = "ADD_TO_FAVOURITES";
 const REMOVE_FROM_FAVOURITES = "REMOVE_FROM_FAVOURITES";
 const SET_CITY_INPUT = "SET_CITY_INPUT";
 const DISPLAY_FAVOURITES = "DISPLAY_FAVOURITES";
+const TOGGLE_MODE = "TOGGLE_MODE";
 
 
 //State management
@@ -20,6 +21,7 @@ const useApplicationData = () => {
     favourites: [],
     photoDetailsModal: false,
     cityInput: "",
+    mode: "light"
   };
 
   const [allPhotos, setAllPhotos] = useState([]); // New state to store all photos seperately for home refresh
@@ -112,6 +114,12 @@ const useApplicationData = () => {
           ...state,
           photoData: filteredPhotos,
         };
+      
+      case TOGGLE_MODE:
+        return {
+          ...state,
+          mode: state.mode === "light" ? "dark" : "light"
+        };
     }
   };
 
@@ -174,6 +182,12 @@ const useApplicationData = () => {
     });
   };
 
+  const toggleMode = () => {
+    dispatch({
+      type: TOGGLE_MODE,
+    })
+  }
+
   return {
     state,
     topicCategoryClicked,
@@ -183,6 +197,7 @@ const useApplicationData = () => {
     setCityInput,
     handleFilterInput,
     displayFavourites,
+    toggleMode
   };
 };
 

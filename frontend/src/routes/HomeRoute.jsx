@@ -15,7 +15,9 @@ const HomeRoute = (props) => {
         cityInput={props.cityInput}
         setCityInput={props.setCityInput}
         handleFilterInput={props.handleFilterInput}
-        displayFavourites={props.displayFavourites}/>
+        displayFavourites={props.displayFavourites}
+        toggleMode={props.toggleMode}
+        mode={props.mode}/>
       
       <PhotoList
         photos={props.photos}
